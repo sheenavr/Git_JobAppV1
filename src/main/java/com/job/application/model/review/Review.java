@@ -1,14 +1,18 @@
-package com.job.application.model;
+package com.job.application.model.review;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.job.application.model.company.Company;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 @Entity
 @Table
-public class Job {
+public class Review {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -16,12 +20,13 @@ public class Job {
 	private String title;
 	@Column(name="description")
 	private String description;
-	@Column(name="minSalary")
-	private Long minSalary;
-	@Column(name="maxSalary")
-	private Long maxSalary;
-	@Column(name="location")
-	private String location;
+	@Column(name="rating")
+	private double rating;
+	
+	@JsonIgnore
+	@ManyToOne
+	private Company company;
+	
 	public Long getId() {
 		return id;
 	}
@@ -40,37 +45,30 @@ public class Job {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Long getMinSalary() {
-		return minSalary;
+	public double getRating() {
+		return rating;
 	}
-	public void setMinSalary(Long minSalary) {
-		this.minSalary = minSalary;
+	public void setRating(double rating) {
+		this.rating = rating;
 	}
-	public Long getMaxSalary() {
-		return maxSalary;
-	}
-	public void setMaxSalary(Long maxSalary) {
-		this.maxSalary = maxSalary;
-	}
-	public String getLocation() {
-		return location;
-	}
-	public void setLocation(String location) {
-		this.location = location;
-	}
-	public Job(Long id, String title, String description, Long minSalary, Long maxSalary, String location) {
+	public Review(Long id, String title, String description, double rating) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.minSalary = minSalary;
-		this.maxSalary = maxSalary;
-		this.location = location;
+		this.rating = rating;
 	}
-	public Job() {
-		super();
-		// TODO Auto-generated constructor stub
+	public Review() {
+		
 	}
+	public Company getCompany() {
+		return company;
+	}
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+	
+	
 	
 	
 	

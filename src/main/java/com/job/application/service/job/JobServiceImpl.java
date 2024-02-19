@@ -1,11 +1,12 @@
-package com.job.application.service;
+package com.job.application.service.job;
 
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.job.application.model.Job;
-import com.job.application.repository.JobRepository;
+
+import com.job.application.model.job.Job;
+import com.job.application.repository.job.JobRepository;
 
 @Service
 public class JobServiceImpl implements JobService {
@@ -26,22 +27,19 @@ public class JobServiceImpl implements JobService {
 	}
 
 	public Optional<Job> getJobById(Long id) {
-        return jobrepository.findById(id);
-    }
-
-	
-	@Override
-	public boolean existsById(Long id) {
-		// TODO Auto-generated method stub
-		return false;
+		return jobrepository.findById(id);
 	}
 
 	@Override
 	public void deleteById(Long id) {
 		jobrepository.deleteById(id);
-		
+
 	}
 
-	
+	@Override
+	public void updateJob(Job job) {
+		jobrepository.save(job);
+
+	}
 
 }

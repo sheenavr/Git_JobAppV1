@@ -1,4 +1,4 @@
-package com.job.application.controller;
+package com.job.application.controller.job;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.job.application.model.Job;
-import com.job.application.service.JobService;
+
+import com.job.application.model.job.Job;
+import com.job.application.service.job.JobService;
 
 @RestController
 @RequestMapping("/api/v1/jobs")
@@ -50,40 +51,33 @@ public class JobAppController {
 // Update Job Details by Id
 
 	@PutMapping("/{id}")
-    public ResponseEntity<String>  updateJob(@PathVariable Long id, @RequestBody Job newJob) {
-        Optional<Job> updateJob = jobservice.getJobById(id);
-        if (updateJob.isPresent()) 
-        {
-        	Job job = updateJob.get();
-            job.setTitle(newJob.getTitle());
-            job.setDescription(newJob.getDescription());
-            job.setMaxSalary(newJob.getMaxSalary());
-            job.setMinSalary(newJob.getMinSalary());
-            job.setLocation(newJob.getLocation());
-            
-        	jobservice.createJob(job);
-    		return new ResponseEntity<>
-    		("Job Details updated successfully", HttpStatus.OK);
-        } else {
-        	return new ResponseEntity<>
-    		("Job Details not found", HttpStatus.NOT_FOUND);
-        }
-    }
+	public ResponseEntity<String> updateJob(@PathVariable Long id, @RequestBody Job newJob) {
+		Optional<Job> updateJob = jobservice.getJobById(id);
+		if (updateJob.isPresent()) {
+			Job job = updateJob.get();
+			job.setTitle(newJob.getTitle());
+			job.setDescription(newJob.getDescription());
+			job.setMaxSalary(newJob.getMaxSalary());
+			job.setMinSalary(newJob.getMinSalary());
+			job.setLocation(newJob.getDescription());
+
+			jobservice.updateJob(newJob);
+			return new ResponseEntity<>("Job Details updated successfully", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Job Details not found", HttpStatus.NOT_FOUND);
+		}
+	}
 // Delete Job Details by Id
 
-	 @DeleteMapping("/{id}")
-	    public ResponseEntity<String> deleteJob(@PathVariable Long id) {
-		 Optional<Job> deleteJob = jobservice.getJobById(id);  
-		 if (deleteJob.isPresent()) {
-	        	jobservice.deleteById(id);
-	        	return new ResponseEntity<>
-	    		("Jod Details deleted successfully", HttpStatus.OK);	
-	        } 
-		 else
-		 {
-		 return new ResponseEntity<>
- 		("Job Details not found", HttpStatus.NOT_FOUND);
-	    }
-	 }
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> deleteJob(@PathVariable Long id) {
+		Optional<Job> deleteJob = jobservice.getJobById(id);
+		if (deleteJob.isPresent()) {
+			jobservice.deleteById(id);
+			return new ResponseEntity<>("Jod Details deleted successfully", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Job Details not found", HttpStatus.NOT_FOUND);
+		}
+	}
 
 }
