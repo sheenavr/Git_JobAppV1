@@ -61,7 +61,7 @@ public class JobAppController {
 			job.setMinSalary(newJob.getMinSalary());
 			job.setLocation(newJob.getDescription());
 
-			jobservice.updateJob(newJob);
+			jobservice.updateJob(job);
 			return new ResponseEntity<>("Job Details updated successfully", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>("Job Details not found", HttpStatus.NOT_FOUND);
@@ -74,7 +74,7 @@ public class JobAppController {
 		Optional<Job> deleteJob = jobservice.getJobById(id);
 		if (deleteJob.isPresent()) {
 			jobservice.deleteById(id);
-			return new ResponseEntity<>("Jod Details deleted successfully", HttpStatus.OK);
+			return new ResponseEntity<>("Job Details deleted successfully", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>("Job Details not found", HttpStatus.NOT_FOUND);
 		}

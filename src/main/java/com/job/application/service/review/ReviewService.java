@@ -17,4 +17,6 @@ public interface ReviewService {
 
 	public boolean createReview(Long companyId, Review review);
 
+	public Optional<Review> getReviewById(Long reviewId);
+
 }

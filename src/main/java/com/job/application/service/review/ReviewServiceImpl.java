@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.job.application.model.company.Company;
+import com.job.application.model.job.Job;
 import com.job.application.model.review.Review;
 import com.job.application.repository.review.ReviewRepository;
 import com.job.application.service.company.CompanyService;
@@ -56,5 +57,11 @@ public class ReviewServiceImpl implements ReviewService {
 		else
 			return false;
 	}
+
+	@Override
+			
+		public Optional<Review> getReviewById(Long reviewId) {
+			return reviewrepository.findById(reviewId);
+		}
 
 }
