@@ -2,7 +2,6 @@ package com.job.application.model.review;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.job.application.model.company.Company;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -67,6 +66,7 @@ public class Review {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
+	
 	
 	
 	

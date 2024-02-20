@@ -1,49 +1,48 @@
 package com.job.application.service.company;
 
-import java.util.List;
-import java.util.Optional;
+import com.job.application.model.company.Company;
+import com.job.application.repository.company.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.job.application.model.company.Company;
-import com.job.application.model.job.Job;
-import com.job.application.repository.company.CompanyRepository;
-import com.job.application.repository.job.JobRepository;
+import java.util.List;
 
 @Service
-public class CompanyServiceImpl implements CompanyService {
-	@Autowired
-	private CompanyRepository companyrepository;
+public class CompanyServiceImpl  implements CompanyService{
 
-	@Override
-	public List<Company> findAll() {
 
-		return companyrepository.findAll();
-	}
+   
 
-	@Override
-	public void createCompany(Company company) {
+    private final CompanyRepository companyRepository;
+    
+    public CompanyServiceImpl(CompanyRepository companyRepository) {
+        this.companyRepository = companyRepository;
+        
+    }
+    
 
-		companyrepository.save(company);
+    // Create a new company
+    public Company createCompany(Company company) {
+        return companyRepository.save(company);
+    }
 
-	}
+    // Retrieve all companies
+    public List<Company> findAll() {
+        return companyRepository.findAll();
+    }
 
-	public Optional<Company> getCompanyById(Long id) {
-		return companyrepository.findById(id);
-	}
+    // Retrieve a company by ID
+    public Company getCompanyById(Long id) {
+        return companyRepository.findById(id).orElse(null);
+    }
 
-	@Override
-	public void deleteById(Long id) {
-		companyrepository.deleteById(id);
+    // Update a company
+    public Company updateCompany(Company company) {
+        return companyRepository.save(company);
+    }
 
-	}
-
-	@Override
-	public void updateCompany(Company company) {
-		companyrepository.save(company);
-
-	}
-
-	
-
+    // Delete a company by ID
+    public void deleteById(Long id) {
+        companyRepository.deleteById(id);
+    }
 }

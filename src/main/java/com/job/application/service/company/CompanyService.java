@@ -5,14 +5,12 @@ import java.util.Optional;
 import com.job.application.model.company.Company;
 
 public interface CompanyService {
+	public Company createCompany(Company company);
 	public List<Company> findAll();
-
-	public void createCompany(Company company);
-
-	public Optional<Company> getCompanyById(Long id);
-
+	public Company getCompanyById(Long id);
+	public Company updateCompany(Company company);
 	public void deleteById(Long id);
-
-	public void updateCompany(Company company);
+	 
 
 }
+

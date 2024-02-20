@@ -5,13 +5,22 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.job.application.model.company.Company;
 import com.job.application.model.review.Review;
 import com.job.application.repository.review.ReviewRepository;
+import com.job.application.service.company.CompanyService;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
-	@Autowired
-	private ReviewRepository reviewrepository;
+	
+	private final ReviewRepository reviewrepository;
+	private final CompanyService companyService;
+
+	public ReviewServiceImpl(ReviewRepository reviewrepository, CompanyService companyService) {
+		super();
+		this.reviewrepository = reviewrepository;
+		this.companyService = companyService;
+	}
 
 	@Override
 	public List<Review> findAll() {
@@ -19,15 +28,9 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewrepository.findAll();
 	}
 
-	@Override
-	public void createReview(Review review) {
-
-		reviewrepository.save(review);
-
-	}
-
-	public Optional<Review> getReviewById(Long id) {
-		return reviewrepository.findById(id);
+	public List<Review> getReviewByCompanyId(Long companyId) {
+		List<Review> reviews = reviewrepository.findByCompanyId(companyId);
+		return reviews;
 	}
 
 	@Override
@@ -40,6 +43,18 @@ public class ReviewServiceImpl implements ReviewService {
 	public void updateReview(Review review) {
 		reviewrepository.save(review);
 
+	}
+
+	@Override
+	public boolean createReview(Long companyId, Review review) {
+		Company company = companyService.getCompanyById(companyId);
+		if (company != null) {
+			review.setCompany(company);
+			reviewrepository.save(review);
+			return true;
+		}
+		else
+			return false;
 	}
 
 }

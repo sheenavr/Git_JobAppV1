@@ -22,11 +22,11 @@ public class Company {
 	@Column(name="description")
 	private String description;
 	
-	@JsonIgnore
+	
 	@OneToMany(mappedBy = "company")
 	private List<Job> jobs;
 	
-	@JsonIgnore
+	
 	@OneToMany(mappedBy = "company")
 	private List<Review> review;
 	
